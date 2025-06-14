@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -99,5 +93,204 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Portfolio Styles */
+@layer components {
+  .portfolio-card {
+    @apply bg-white border border-gray-200 shadow-lg rounded-xl backdrop-blur-sm;
+    transition: all 0.3s ease;
+  }
+
+  .portfolio-card:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  .portfolio-preview {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden;
+    min-height: 400px;
+  }
+
+  .portfolio-container {
+    @apply w-full max-w-4xl mx-auto;
+  }
+
+  .modern-template {
+    @apply bg-white;
+  }
+
+  .modern-template .portfolio-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #4f46e5 100%);
+  }
+
+  .minimalist-template {
+    @apply bg-white;
+  }
+
+  /* Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out;
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.8s ease-out;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  /* Form Enhancements */
+  .form-section {
+    @apply space-y-4 p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border border-blue-100;
+  }
+
+  .form-section h3 {
+    @apply text-lg font-semibold text-gray-800 mb-4;
+  }
+
+  /* Button Enhancements */
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-200 hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 py-2 px-4 rounded-lg shadow-sm transition-all duration-200;
+  }
+
+  /* Portfolio Section Styles */
+  .portfolio-section {
+    @apply mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-100;
+  }
+
+  .portfolio-section h2 {
+    @apply text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-500;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .portfolio-card {
+      @apply mx-2;
+    }
+    
+    .portfolio-preview {
+      @apply text-sm;
+    }
+    
+    .portfolio-header {
+      @apply p-4;
+    }
+    
+    .portfolio-header h1 {
+      @apply text-2xl;
+    }
+  }
+}
+
+/* Print Styles */
+@media print {
+  .portfolio-preview {
+    @apply shadow-none;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .portfolio-card {
+    @apply border-2 border-black;
+  }
+  
+  .gradient-text {
+    color: black !important;
+    background: none !important;
+    -webkit-text-fill-color: black !important;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-in-right,
+  .animate-bounce-in {
+    animation: none;
+  }
+  
+  .portfolio-card {
+    transition: none;
+  }
+  
+  .portfolio-card:hover {
+    transform: none;
   }
 }
