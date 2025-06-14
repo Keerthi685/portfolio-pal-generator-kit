@@ -39,6 +39,7 @@ interface PortfolioData {
     technologies: string;
     link: string;
   }>;
+  profileImage?: string | null;
 }
 
 const Index = () => {
@@ -58,7 +59,8 @@ const Index = () => {
     skills: [''],
     experience: [{ title: '', company: '', duration: '', description: '' }],
     education: [{ degree: '', institution: '', year: '' }],
-    projects: [{ name: '', description: '', technologies: '', link: '' }]
+    projects: [{ name: '', description: '', technologies: '', link: '' }],
+    profileImage: null
   });
 
   const [selectedTemplate, setSelectedTemplate] = useState('modern');
@@ -66,6 +68,13 @@ const Index = () => {
 
   const handleDataChange = (data: PortfolioData) => {
     setPortfolioData(data);
+  };
+
+  const handleProfileImageChange = (imageData: string | null) => {
+    setPortfolioData(prev => ({
+      ...prev,
+      profileImage: imageData
+    }));
   };
 
   const handleGenerate = () => {
@@ -88,6 +97,16 @@ const Index = () => {
   const handleDownload = () => {
     const portfolioElement = document.querySelector('.portfolio-preview');
     if (!portfolioElement) return;
+
+    const profileImageSection = portfolioData.profileImage ? `
+      <div style="width: 8rem; height: 8rem; margin: 0 auto 1.5rem; border-radius: 50%; overflow: hidden; border: 4px solid white; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+        <img src="${portfolioData.profileImage}" alt="${portfolioData.personalInfo.name}" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+    ` : `
+      <div style="width: 8rem; height: 8rem; background: white; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: bold; background: linear-gradient(to right, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        ${portfolioData.personalInfo.name.charAt(0)}
+      </div>
+    `;
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -128,6 +147,7 @@ const Index = () => {
 <body>
     <div class="portfolio-container">
         <div class="portfolio-header">
+            ${profileImageSection}
             <h1>${portfolioData.personalInfo.name}</h1>
             <p>${portfolioData.personalInfo.title}</p>
             <div class="contact-info">
@@ -309,13 +329,15 @@ const Index = () => {
             <Card className="portfolio-card max-w-4xl mx-auto">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-800">
-                  Select Portfolio Template
+                  Select Portfolio Template & Upload Profile Picture
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <TemplateSelector 
                   selectedTemplate={selectedTemplate}
                   onTemplateChange={setSelectedTemplate}
+                  profileImage={portfolioData.profileImage}
+                  onProfileImageChange={handleProfileImageChange}
                 />
               </CardContent>
             </Card>

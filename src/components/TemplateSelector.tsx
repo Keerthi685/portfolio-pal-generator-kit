@@ -2,13 +2,21 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import ImageUpload from './ImageUpload';
 
 interface TemplateSelectorProps {
   selectedTemplate: string;
   onTemplateChange: (template: string) => void;
+  profileImage?: string | null;
+  onProfileImageChange?: (imageData: string | null) => void;
 }
 
-const TemplateSelector: React.FC<TemplateSelectorProps> = ({ selectedTemplate, onTemplateChange }) => {
+const TemplateSelector: React.FC<TemplateSelectorProps> = ({ 
+  selectedTemplate, 
+  onTemplateChange,
+  profileImage,
+  onProfileImageChange 
+}) => {
   const templates = [
     {
       id: 'modern',
@@ -42,33 +50,48 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ selectedTemplate, o
   ];
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gray-800">Choose Template</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {templates.map((template) => (
-          <Card
-            key={template.id}
-            className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
-              selectedTemplate === template.id
-                ? 'ring-2 ring-blue-500 shadow-lg'
-                : 'hover:shadow-md'
-            }`}
-            onClick={() => onTemplateChange(template.id)}
-          >
-            <CardContent className="p-4">
-              <div className="mb-3">
-                {template.preview}
-              </div>
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold text-gray-800">{template.name}</h4>
-                {selectedTemplate === template.id && (
-                  <Badge className="bg-blue-500 text-white">Selected</Badge>
-                )}
-              </div>
-              <p className="text-sm text-gray-600">{template.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+    <div className="space-y-6">
+      {/* Profile Image Upload Section */}
+      {onProfileImageChange && (
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Profile Picture</h3>
+          <ImageUpload
+            onImageChange={onProfileImageChange}
+            currentImage={profileImage}
+            label="Upload your profile picture"
+          />
+        </div>
+      )}
+
+      {/* Template Selection */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">Choose Template</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {templates.map((template) => (
+            <Card
+              key={template.id}
+              className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
+                selectedTemplate === template.id
+                  ? 'ring-2 ring-blue-500 shadow-lg'
+                  : 'hover:shadow-md'
+              }`}
+              onClick={() => onTemplateChange(template.id)}
+            >
+              <CardContent className="p-4">
+                <div className="mb-3">
+                  {template.preview}
+                </div>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-semibold text-gray-800">{template.name}</h4>
+                  {selectedTemplate === template.id && (
+                    <Badge className="bg-blue-500 text-white">Selected</Badge>
+                  )}
+                </div>
+                <p className="text-sm text-gray-600">{template.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

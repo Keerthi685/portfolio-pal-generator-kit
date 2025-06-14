@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -34,6 +33,7 @@ interface PortfolioData {
     technologies: string;
     link: string;
   }>;
+  profileImage?: string | null;
 }
 
 interface PortfolioPreviewProps {
@@ -58,9 +58,19 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, template }) =
       {/* Header Section */}
       <div className="portfolio-header bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white p-8 rounded-t-xl">
         <div className="text-center">
-          <div className="w-32 h-32 bg-white rounded-full mx-auto mb-6 flex items-center justify-center text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-            {data.personalInfo.name.charAt(0)}
-          </div>
+          {data.profileImage ? (
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-lg">
+              <img 
+                src={data.profileImage} 
+                alt={data.personalInfo.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <div className="w-32 h-32 bg-white rounded-full mx-auto mb-6 flex items-center justify-center text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              {data.personalInfo.name.charAt(0)}
+            </div>
+          )}
           <h1 className="text-4xl font-bold mb-2">{data.personalInfo.name}</h1>
           <p className="text-xl opacity-90 mb-6">{data.personalInfo.title}</p>
           
@@ -227,6 +237,15 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, template }) =
       <div className="max-w-4xl mx-auto p-8">
         {/* Header */}
         <header className="text-center mb-12 pb-8 border-b border-gray-200">
+          {data.profileImage && (
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden">
+              <img 
+                src={data.profileImage} 
+                alt={data.personalInfo.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
           <h1 className="text-5xl font-light text-gray-900 mb-2">{data.personalInfo.name}</h1>
           <p className="text-xl text-gray-600 mb-6">{data.personalInfo.title}</p>
           <div className="flex flex-wrap justify-center gap-6 text-gray-600">
