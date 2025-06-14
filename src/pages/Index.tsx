@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PortfolioForm from '@/components/PortfolioForm';
 import PortfolioPreview from '@/components/PortfolioPreview';
 import TemplateSelector from '@/components/TemplateSelector';
+import NavigationHeader from '@/components/NavigationHeader';
+import AboutUsSection from '@/components/AboutUsSection';
+import ContactSection from '@/components/ContactSection';
 import { Download, Eye, Code, Palette, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -241,17 +243,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white">
-        <div className="container mx-auto px-4 py-8">
+      {/* Navigation Header */}
+      <NavigationHeader activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Hero Section */}
+      <section id="home" className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white">
+        <div className="container mx-auto px-4 py-16">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
               Portfolio Generator
             </h1>
-            <p className="text-xl opacity-90 mb-8 animate-fade-in">
+            <p className="text-xl md:text-2xl opacity-90 mb-8 animate-fade-in">
               Create a stunning professional portfolio in minutes
             </p>
-            <div className="flex justify-center gap-8 text-sm">
+            <div className="flex justify-center gap-8 text-sm mb-8">
               <div className="flex items-center gap-2">
                 <User className="w-5 h-5" />
                 <span>Personal Info</span>
@@ -269,9 +274,19 @@ const Index = () => {
                 <span>Download</span>
               </div>
             </div>
+            <Button 
+              onClick={() => setActiveTab('form')}
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3"
+            >
+              Start Creating Now
+            </Button>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* About Us Section */}
+      <AboutUsSection />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
@@ -326,7 +341,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="template">
-            <Card className="portfolio-card max-w-4xl mx-auto">
+            <Card className="portfolio-card max-w-6xl mx-auto">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-800">
                   Select Portfolio Template & Upload Profile Picture
@@ -373,15 +388,25 @@ const Index = () => {
         </Tabs>
       </div>
 
+      {/* Contact Section */}
+      <ContactSection />
+
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-16">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-300">
-            Built with React, TypeScript, and Tailwind CSS
-          </p>
-          <p className="text-gray-400 text-sm mt-2">
-            Create professional portfolios with ease
-          </p>
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-gray-300 mb-2">
+              Built with React, TypeScript, and Tailwind CSS
+            </p>
+            <p className="text-gray-400 text-sm mb-4">
+              Create professional portfolios with ease
+            </p>
+            <div className="border-t border-gray-700 pt-4">
+              <p className="text-gray-500 text-sm">
+                © 2025 Portfolio Generator. All rights reserved.
+              </p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
