@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,8 @@ import TemplateSelector from '@/components/TemplateSelector';
 import NavigationHeader from '@/components/NavigationHeader';
 import AboutUsSection from '@/components/AboutUsSection';
 import ContactSection from '@/components/ContactSection';
+import UserReviews from '@/components/UserReviews';
+import FillInformation from '@/components/FillInformation';
 import { Download, Eye, Code, Palette, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
